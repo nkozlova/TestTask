@@ -16,12 +16,12 @@ int main()
 	reader.getMoney("Одна тысяча девятьсот рублей 00 коп");
 	reader.getMoney("15 коп");
 	reader.getMoney("Пятнадцать рублей");
-	reader.getMoney("Сто двадцать рублей 170 коп");
+	reader.getMoney("Сто двадцать рублей 70 коп");
 
 	return 0;
 }
 
-bool ReaderMoney::getMoney(std::string lineWithMoney)
+std::pair<bool, std::pair<int, int>> ReaderMoney::getMoney(std::string lineWithMoney)
 // На вход подается строка, содержащая денежную сумму прописью
 // На выход - флаг, удалось ли распарсить строку
 {
@@ -33,18 +33,18 @@ bool ReaderMoney::getMoney(std::string lineWithMoney)
 
 	if (wordsOfMoney.size() < 2)
 	{
-		return false;
+		return std::pair<bool, std::pair<int, int>>(false, std::pair<int, int>(0, 0));
 	}
 
 	if (countOfRubles() < 0 || countOfKopecks() < 0)
 	{
 		std::cout << "Invalid data" << std::endl;
-		return false;
+		return std::pair<bool, std::pair<int, int>>(false, std::pair<int, int>(0, 0));
 	}
 
 	std::cout << counterOfRubles << " руб, " << counterOfKopecks << " коп" << std::endl;
 
-	return true;
+	return std::pair<bool, std::pair<int, int>>(true, std::pair<int, int>(counterOfRubles, counterOfKopecks));
 }
 
 void ReaderMoney::splitToWords(std::string line)

@@ -13,7 +13,10 @@ class ReaderMoney
 public:
 	ReaderMoney();
 
-	bool getMoney(std::string lineWithMoney);	// Перевод количества денег в денежную сумму
+	std::pair<bool, std::pair<int, int>> getMoney(std::string lineWithMoney);	// Перевод количества денег в денежную сумму
+
+	int getRubles() { return counterOfRubles; }
+	int getKopecks() { return counterOfKopecks; }
 
 private:
 	void splitToWords(std::string line);		// Деление строки на отдельные слова
